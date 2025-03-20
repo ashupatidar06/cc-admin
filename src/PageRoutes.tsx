@@ -9,6 +9,7 @@ import LoginFormWrapper from "./modules/Login/LoginFormWrapper";
 import UserListingWrapper from "./modules/User/screens/List/UserListingWrapper";
 import InquiryListingWrapper from "./modules/inquiry/screens/List/InquiryListingWrapper";
 import InquiryView from "./modules/inquiry/screens/View/InquiryView";
+import AddUserFormWrapper from "./modules/CultureOfMarketing/screens/Add/AddUserFormWrapper";
 // Import PageRoute Above
 
 const PageRoutes = () => {
@@ -50,6 +51,10 @@ const PageRoutes = () => {
         {
           path: "appointments",
           element: <Appointments />,
+        },
+        {
+          path: "culture-of-marketing",
+          element: <AddUserFormWrapper />,
         },
         // Import PageRoute Wrapper Above
       ],

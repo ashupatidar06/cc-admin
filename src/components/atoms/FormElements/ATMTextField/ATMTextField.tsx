@@ -123,11 +123,11 @@ const ATMTextField: React.FC<TextFieldProps> = ({
       </div>
 
       {helperText && isValid && (
-        <p className="absolute text-xs text-slate-500"> {helperText} </p>
+        <p className="absolute text-sm text-slate-500"> {helperText} </p>
       )}
 
-      <ErrorMessage name={name}>
-        {(errorMessage) => <ATMFieldError> {errorMessage} </ATMFieldError>}
+      <ErrorMessage name={name} className="text-sm">
+        {(errorMessage) => <ATMFieldError > {errorMessage} </ATMFieldError>}
       </ErrorMessage>
     </div>
   );

@@ -89,6 +89,21 @@ const navigation: (params?: {
           // },
           // permission: "NAV_ADMIN_USER",
         },
+        {
+          title: "Culture of Marketing",
+          icon: IconUserCog,
+          path: "culture-of-marketing",
+        },
+        {
+          title: "Culture of Origin",
+          icon: IconUserCog,
+          path: "culture-of-origin",
+        },
+        {
+          title: "Motion Cult",
+          icon: IconUserCog,
+          path: "motion-cult",
+        },
       ],
     },
     // {
