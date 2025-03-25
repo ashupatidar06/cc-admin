@@ -1,6 +1,8 @@
 import { FormikProps } from "formik";
 import ATMTextField from "src/components/atoms/FormElements/ATMTextField/ATMTextField";
 import ATMCircularProgress from "src/components/atoms/ATMCircularProgress/ATMCircularProgress";
+import ATMTextArea from "src/components/atoms/FormElements/ATMTextArea/ATMTextArea";
+import { ATMButton } from "src/components/atoms/ATMButton/ATMButton";
 
 type Props = {
   formikProps: FormikProps<any>;
@@ -9,33 +11,8 @@ type Props = {
   isLoading?: boolean;
 };
 
-const CultureOfMarketingLayout = ({
-  formikProps,
-  onClose,
-  type,
-  isLoading,
-}: Props) => {
-  const { values, setFieldValue, handleBlur } = formikProps;
-
-  const defaultItem = {
-    title: "",
-    subTitle: "",
-    link: "",
-    description: "",
-    image_path: "",
-  };
-
-  const handleAdd = (key: string) => {
-    if (Array.isArray(values[key])) {
-      setFieldValue(key, [...values[key], { ...defaultItem }]);
-    }
-  };
-
-  const handleRemove = (key: string, index: number) => {
-    const updatedArray = [...values[key]];
-    updatedArray.splice(index, 1);
-    setFieldValue(key, updatedArray);
-  };
+const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
+  const { values, setFieldValue, handleBlur, handleSubmit } = formikProps;
 
   return (
     <>
@@ -45,102 +22,82 @@ const CultureOfMarketingLayout = ({
         </div>
       ) : (
         <div className="flex flex-col gap-y-6 p-6 bg-white shadow-lg rounded-lg">
-          {Object.keys(values).map((key) => {
-            const value = values[key];
+          <div className="flex justify-between border-b-2 pb-4 border-black">
+            <h3 className="text-lg font-bold">CULTURE OF MARKETING</h3>
 
-            if (Array.isArray(value)) {
-              return (
-                <div
-                  key={key}
-                  className="border p-6 rounded-lg shadow-md bg-gray-100"
-                >
-                  <h3 className="text-xl font-bold uppercase  mb-4 text-gray-700">
-                    {/* {key.toUpperCase()} */}
-                    Culture Of Marketing
-                  </h3>
+            <ATMButton
+              extraClasses="-mt-1 mr-4"
 
-                  {value.map((item, index) => (
-                    <div
-                      key={`${key}-${index}`}
-                      className="border p-8  rounded-lg relative mb-4 bg-white shadow"
-                    >
-                      <h4 className="text-md font-semibold mb-4 text-gray-600">
-                        Section {index + 1}
-                      </h4>
+              autoFocus onClick={handleSubmit} color="primary">
+              Add
+            </ATMButton>
+          </div>
+          {/* <ATMTextField
+            name="title"
+            value={values.title}
+            placeholder="Enter Title"
+            onChange={(e) => setFieldValue("title", e.target.value)}
+            label="Title"
+            onBlur={handleBlur}
+          /> */}
 
-                      {Object.keys(defaultItem).map((subKey) => {
-                        if (subKey === "description") {
-                          return (
-                            <textarea
-                              key={`${key}-${index}-${subKey}`}
-                              name={`${key}[${index}].${subKey}`}
-                              value={item[subKey] || ""}
-                              placeholder={`Enter ${subKey}`}
-                              onChange={(e) =>
-                                setFieldValue(
-                                  `${key}[${index}].${subKey}`,
-                                  e.target.value
-                                )
-                              }
-                              className="w-full p-5 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                              rows={4}
-                              onBlur={handleBlur}
-                            />
-                          );
-                        }
+          <ATMTextArea
+            name="body"
+            value={values.body}
+            placeholder="Enter Body"
+            onChange={(e) => setFieldValue("body", e.target.value)}
+            label="Body"
+            onBlur={handleBlur}
+          />
 
-                        return (
-                          <div className="my-5">
-                            <ATMTextField
-                              className="p-4"
-                              key={`${key}-${index}-${subKey}`}
-                              name={`${key}[${index}].${subKey}`}
-                              value={item[subKey] || ""}
-                              placeholder={`Enter ${subKey}`}
-                              onChange={(e) =>
-                                setFieldValue(
-                                  `${key}[${index}].${subKey}`,
-                                  e.target.value
-                                )
-                              }
-                              label={subKey.replace(/_/g, " ").toUpperCase()}
-                              onBlur={handleBlur}
-                            />
-                          </div>
-                        );
-                      })}
+          {["theChallenge", "middleBanner", "theResearch", "theSolution"].map(
+            (section) => (
+              <div key={section} className="border p-4 rounded-lg mb-4 bg-white shadow">
+                <h4 className="text-lg font-bold text-gray-700 mb-2 capitalize">
+                  {section.replace(/([A-Z])/g, ' $1').trim()}
+                </h4>
 
-                      <button
-                        onClick={() => handleRemove(key, index)}
-                        className="absolute top-3 right-3 text-red-500 border border-red-500 px-3 py-1 rounded-lg hover:bg-red-500 hover:text-white transition"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  ))}
+                <div className="mb-4">
 
-                  <button
-                    onClick={() => handleAdd(key)}
-                    className="mt-4 px-4 py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition"
-                  >
-                    + Add More
-                  </button>
-                </div>
-              );
-            }
+                  <ATMTextField
+                    name={`${section}.title`}
+                    value={values[section]?.title || ""}
+                    placeholder="Enter Title"
+                    onChange={(e) =>
+                      setFieldValue(`${section}.title`, e.target.value)
+                    }
+                    label="Title"
+                    onBlur={handleBlur}
+                  /> </div>
+                {section != "middleBanner" ?
+                  <div className="mb-4">
 
-            return (
-              <ATMTextField
-                key={key}
-                name={key}
-                value={value}
-                onChange={(e) => setFieldValue(key, e.target.value)}
-                label={key.replace(/_/g, " ").toUpperCase()}
-                placeholder={`Enter ${key}`}
-                onBlur={handleBlur}
-              />
-            );
-          })}
+                    <ATMTextArea
+                      name={`${section}.body`}
+                      value={values[section]?.body || ""}
+                      placeholder="Enter Body"
+                      onChange={(e) =>
+                        setFieldValue(`${section}.body`, e.target.value)
+                      }
+                      label="Body"
+                      onBlur={handleBlur}
+                    />  </div> : null}
+
+                <div className="mb-4">
+
+                  <ATMTextField
+                    name={`${section}.img`}
+                    value={values[section]?.img || ""}
+                    placeholder="Enter Image URL"
+                    onChange={(e) =>
+                      setFieldValue(`${section}.img`, e.target.value)
+                    }
+                    label="Image URL"
+                    onBlur={handleBlur}
+                  /> </div>
+              </div>
+            )
+          )}
         </div>
       )}
     </>

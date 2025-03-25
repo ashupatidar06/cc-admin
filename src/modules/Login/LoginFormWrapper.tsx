@@ -94,7 +94,7 @@ const LoginFormWrapper = () => {
   };
 
   if (isLogin) {
-    return <Navigate to="/" />;
+    return <Navigate to="/user" />;
   }
 
   return (

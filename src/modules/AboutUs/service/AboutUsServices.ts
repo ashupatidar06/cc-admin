@@ -1,13 +1,13 @@
 import apiSlice from "src/services/ApiSlice";
 
-export const userApi = apiSlice.injectEndpoints({
+export const AboutUsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Pagination
-    getUser: builder.query({
-      providesTags: [],
+    getAboutUs: builder.query({
+      providesTags: ["aboutus"],
       query: (body) => {
         return {
-          url: "/user/pagination",
+          url: "/about-us/get-data",
           method: "GET",
           params: body,
         };
@@ -15,11 +15,11 @@ export const userApi = apiSlice.injectEndpoints({
     }),
 
     // Add
-    addUser: builder.mutation({
-      invalidatesTags: [],
+    addAboutUs: builder.mutation({
+      invalidatesTags: ["aboutus"],
       query: (body) => {
         return {
-          url: "/user/add",
+          url: "/about-us/add",
           method: "POST",
           body,
         };
@@ -28,4 +28,4 @@ export const userApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetUserQuery, useAddUserMutation } = userApi;
+export const { useGetAboutUsQuery, useAddAboutUsMutation } = AboutUsApi;

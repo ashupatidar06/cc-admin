@@ -22,7 +22,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["admin-user" , "category" , "sub-category","inquiry"],
+  tagTypes: ["admin-user", "category", "sub-category", "inquiry", "com", "coo", "aboutus"],
   endpoints: () => ({}),
 });
 

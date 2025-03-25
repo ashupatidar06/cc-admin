@@ -22,12 +22,26 @@ export enum UserEnum {
   superAdmin = "SUPERADMIN",
 }
 
-export type CultureOfMarketingFormValues = {
-  data: {
+export interface CultureOfMarketingFormValues {
+  // title: string;
+  body: string;
+  theChallenge?: {
+    img: string;
     title: string;
-    subTitle: string;
-    link: string;
-    description: string;
-    image_path: string;
-  }[];
-};
+    body: string;
+  };
+  middleBanner?: {
+    img: string;
+    title: string;
+  };
+  theResearch?: {
+    img: string;
+    title: string;
+    body: string;
+  };
+  theSolution?: {
+    img: string;
+    title: string;
+    body: string;
+  };
+}

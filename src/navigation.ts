@@ -2,8 +2,11 @@ import {
   Icon,
   IconHome,
   IconUserCog,
-  // IconMapPinFilled,
-  // IconCardboards,
+  IconMessage2Question,
+  IconArrowNarrowRight,
+  IconUsersGroup,
+  IconCalendarWeek
+
   // IconCategoryFilled,
   // IconGoGame,
   // IconBrandFlickr,
@@ -14,6 +17,7 @@ import {
   // IconFileTypeJpg,
   // IconAssembly,
 } from "@tabler/icons-react";
+
 import { PermissionType } from "./utils/authorization";
 import { getPermittedNavigations } from "./utils/getPermittedNavigations";
 
@@ -54,11 +58,11 @@ const navigation: (params?: {
     {
       groupLable: "Dashboard",
       items: [
-        {
-          title: "Dashboard",
-          icon: IconHome,
-          path: "",
-        },
+        // {
+        //   title: "Dashboard",
+        //   icon: IconHome,
+        //   path: "",
+        // },
         {
           title: "User",
           icon: IconUserCog,
@@ -71,7 +75,7 @@ const navigation: (params?: {
         },
         {
           title: "Inquiry",
-          icon: IconUserCog,
+          icon: IconMessage2Question,
           path: "inquiry",
           searchParams: {
             page: "1",
@@ -81,7 +85,7 @@ const navigation: (params?: {
         },
         {
           title: "Appointments",
-          icon: IconUserCog,
+          icon: IconCalendarWeek,
           path: "appointments",
           // searchParams: {
           //   page: "1",
@@ -91,18 +95,23 @@ const navigation: (params?: {
         },
         {
           title: "Culture of Marketing",
-          icon: IconUserCog,
+          icon: IconArrowNarrowRight,
           path: "culture-of-marketing",
         },
         {
           title: "Culture of Origin",
-          icon: IconUserCog,
+          icon: IconArrowNarrowRight,
           path: "culture-of-origin",
         },
+        // {
+        //   title: "Motion Cult",
+        //   icon: IconArrowNarrowRight,
+        //   path: "motion-cult",
+        // },
         {
-          title: "Motion Cult",
-          icon: IconUserCog,
-          path: "motion-cult",
+          title: "About Us",
+          icon: IconUsersGroup,
+          path: "about-us",
         },
       ],
     },

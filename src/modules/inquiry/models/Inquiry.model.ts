@@ -8,6 +8,7 @@ export type InquiryProps = {
   whatBringYou: string;
   focusArea: string[];
   marketingBudget: string[];
+  acknowledged: boolean
   isDeleted: boolean;
   isActive: boolean;
   createdAt: string;
@@ -15,7 +16,7 @@ export type InquiryProps = {
   __v: number;
 };
 
- 
+
 export type CategoryFormValues = {
   categoryName: string;
 };

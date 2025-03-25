@@ -9,7 +9,10 @@ import LoginFormWrapper from "./modules/Login/LoginFormWrapper";
 import UserListingWrapper from "./modules/User/screens/List/UserListingWrapper";
 import InquiryListingWrapper from "./modules/inquiry/screens/List/InquiryListingWrapper";
 import InquiryView from "./modules/inquiry/screens/View/InquiryView";
-import AddUserFormWrapper from "./modules/CultureOfMarketing/screens/Add/AddUserFormWrapper";
+import AddUserFormWrapper from "./modules/CultureOfMarketing/screens/Add/AddCultureOfMarketingWrapper";
+import AddCultureOfMarketingWrapper from "./modules/CultureOfMarketing/screens/Add/AddCultureOfMarketingWrapper";
+import AddCultureOfOriginWrapper from "./modules/CultureOfOrigin/screens/Add/AddCultureOfOriginWrapper";
+import AddAboutUsWrapper from "./modules/AboutUs/screens/Add/AboutUsWrapper";
 // Import PageRoute Above
 
 const PageRoutes = () => {
@@ -54,7 +57,15 @@ const PageRoutes = () => {
         },
         {
           path: "culture-of-marketing",
-          element: <AddUserFormWrapper />,
+          element: <AddCultureOfMarketingWrapper />,
+        },
+        {
+          path: "culture-of-origin",
+          element: <AddCultureOfOriginWrapper />,
+        },
+        {
+          path: "about-us",
+          element: <AddAboutUsWrapper />,
         },
         // Import PageRoute Wrapper Above
       ],

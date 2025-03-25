@@ -24,7 +24,17 @@ export const inquiryApi = apiSlice.injectEndpoints({
         };
       },
     }),
+
+    updateInquiryById: builder.mutation({
+      invalidatesTags: ["inquiry"],
+      query: ({ id }) => {
+        return {
+          url: `/contact-us/acknowledged/${id}`,
+          method: "PUT",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetInquiryQuery, useGetInquiryByIdQuery } = inquiryApi;
+export const { useGetInquiryQuery, useGetInquiryByIdQuery, useUpdateInquiryByIdMutation } = inquiryApi;

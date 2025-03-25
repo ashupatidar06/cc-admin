@@ -3,7 +3,7 @@ import AuthSlice from "./slices/AuthSlice";
 import SideNavLayoutSlice from "./slices/SideNavLayoutSlice";
 import apiSlice from "./services/ApiSlice";
 import { fileExplorerSlice } from "./services/FileExplorer";
-// import { authMiddleware } from "./middlewares/authMiddleware";
+import { authMiddleware } from "./middlewares/authMiddleware";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import UserSlice from "./modules/User/slice/UserSlice";
 
@@ -24,7 +24,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }).concat([
-      // authMiddleware,
+      authMiddleware,
       apiSlice.middleware,
       fileExplorerSlice.middleware,
     ]),
