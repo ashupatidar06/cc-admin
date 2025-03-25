@@ -31,7 +31,7 @@ const InquiryListingWrapper = (props: Props) => {
         limit,
         page,
         searchValue: searchQuery,
-        searchIn: JSON.stringify(["categoryName"]),
+        searchIn: JSON.stringify(["name", "industry", "businessName", "whatBringYou", "marketingBudget"]),
         isPaginationRequired: true,
         ...(acknowledged !== "" && {
           filterBy: JSON.stringify([{ fieldName: "acknowledged", value: acknowledged }]),
