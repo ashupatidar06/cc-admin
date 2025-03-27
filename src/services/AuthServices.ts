@@ -44,6 +44,32 @@ export const authApi = apiSlice.injectEndpoints({
         };
       },
     }),
+    uploadFile: builder.mutation({
+      query: ({ body }) => {
+        return {
+          url: `/auth/upload`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    addSwipeCards: builder.mutation({
+      query: ({ body }) => {
+        return {
+          url: `/swipe-cards/add`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    fileGetData: builder.query({
+      query: () => {
+        return {
+          url: `/swipe-cards/get-data`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -51,4 +77,8 @@ export const {
   useLoginMutation,
   useGetAccessTokenMutation,
   useChangePasswordMutation,
+  useUploadFileMutation,
+  useFileGetDataQuery,
+  useAddSwipeCardsMutation
+  
 } = authApi;

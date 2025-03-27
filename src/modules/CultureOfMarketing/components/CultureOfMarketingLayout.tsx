@@ -1,8 +1,10 @@
 import { FormikProps } from "formik";
-import ATMTextField from "src/components/atoms/FormElements/ATMTextField/ATMTextField";
+import React from "react";
+import { ATMButton } from "src/components/atoms/ATMButton/ATMButton";
 import ATMCircularProgress from "src/components/atoms/ATMCircularProgress/ATMCircularProgress";
 import ATMTextArea from "src/components/atoms/FormElements/ATMTextArea/ATMTextArea";
-import { ATMButton } from "src/components/atoms/ATMButton/ATMButton";
+import ATMTextField from "src/components/atoms/FormElements/ATMTextField/ATMTextField";
+import { useUploadFileMutation } from "src/services/AuthServices";
 
 type Props = {
   formikProps: FormikProps<any>;
@@ -13,6 +15,45 @@ type Props = {
 
 const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
   const { values, setFieldValue, handleBlur, handleSubmit } = formikProps;
+
+  const [uploadFile ,{isLoading:imgIsloading}] = useUploadFileMutation();
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setFieldValue: any,
+    fieldName: any
+  ) => {
+    const file = event.currentTarget.files?.[0] || null;
+    if (!file) return;
+
+    // Remove spaces from the file name
+    const sanitizedFileName = file.name.replace(/\s+/g, "_"); // Replace spaces with underscores
+
+    // Create a new file with the sanitized name
+    const newFile = new File([file], sanitizedFileName, { type: file.type });
+
+    console.log("Uploading file:", fieldName, newFile);
+    setFieldValue(fieldName, newFile);
+
+    // Upload file
+    const formData = new FormData();
+    formData.append("file", newFile);
+    formData.append("folder", "cultureOfmarket");
+
+    try {
+      const response = await uploadFile({
+        body: formData,
+        fileName: fieldName,
+      }).unwrap();
+      if (response?.fileUrl) {
+        setFieldValue(fieldName, response.fileUrl);
+
+        console.log(`${fieldName} uploaded successfully:`, response.fileUrl);
+      }
+    } catch (error) {
+      console.error(`Error uploading ${fieldName}:`, error);
+    }
+  };
 
   return (
     <>
@@ -27,8 +68,11 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
 
             <ATMButton
               extraClasses="-mt-1 mr-4"
-
-              autoFocus onClick={handleSubmit} color="primary">
+              autoFocus
+              onClick={handleSubmit}
+              color="primary"
+              disabled={imgIsloading}
+            >
               Add
             </ATMButton>
           </div>
@@ -52,13 +96,15 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
 
           {["theChallenge", "middleBanner", "theResearch", "theSolution"].map(
             (section) => (
-              <div key={section} className="border p-4 rounded-lg mb-4 bg-white shadow">
+              <div
+                key={section}
+                className="border p-4 rounded-lg mb-4 bg-white shadow"
+              >
                 <h4 className="text-lg font-bold text-gray-700 mb-2 capitalize">
-                  {section.replace(/([A-Z])/g, ' $1').trim()}
+                  {section.replace(/([A-Z])/g, " $1").trim()}
                 </h4>
 
                 <div className="mb-4">
-
                   <ATMTextField
                     name={`${section}.title`}
                     value={values[section]?.title || ""}
@@ -68,10 +114,10 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
                     }
                     label="Title"
                     onBlur={handleBlur}
-                  /> </div>
-                {section != "middleBanner" ?
+                  />{" "}
+                </div>
+                {section != "middleBanner" ? (
                   <div className="mb-4">
-
                     <ATMTextArea
                       name={`${section}.body`}
                       value={values[section]?.body || ""}
@@ -81,20 +127,33 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
                       }
                       label="Body"
                       onBlur={handleBlur}
-                    />  </div> : null}
+                    />{" "}
+                  </div>
+                ) : null}
 
                 <div className="mb-4">
-
-                  <ATMTextField
-                    name={`${section}.img`}
-                    value={values[section]?.img || ""}
-                    placeholder="Enter Image URL"
-                    onChange={(e) =>
-                      setFieldValue(`${section}.img`, e.target.value)
+               
+                  <label className=" uppercase text-sm font-bold py-2 px-2">
+                    {"upload image"}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(event) =>
+                      handleFileChange(event, setFieldValue, `${section}.img`)
                     }
-                    label="Image URL"
-                    onBlur={handleBlur}
-                  /> </div>
+                    className="border p-2 rounded"
+                  />
+            
+                  <div className="h-96 w-full p-1 flex items-center justify-center border">
+                    <img
+                      src={values[section]?.img}
+                      alt=""
+                      className="h-full w-full object-fill"
+                    />
+                  </div>
+                </div>
+                {/* </div> */}
               </div>
             )
           )}

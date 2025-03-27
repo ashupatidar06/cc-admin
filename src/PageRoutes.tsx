@@ -13,6 +13,7 @@ import AddUserFormWrapper from "./modules/CultureOfMarketing/screens/Add/AddCult
 import AddCultureOfMarketingWrapper from "./modules/CultureOfMarketing/screens/Add/AddCultureOfMarketingWrapper";
 import AddCultureOfOriginWrapper from "./modules/CultureOfOrigin/screens/Add/AddCultureOfOriginWrapper";
 import AddAboutUsWrapper from "./modules/AboutUs/screens/Add/AboutUsWrapper";
+import SwipeView from "./modules/SwipeCards/SwipeView";
 // Import PageRoute Above
 
 const PageRoutes = () => {
@@ -54,6 +55,10 @@ const PageRoutes = () => {
         {
           path: "appointments",
           element: <Appointments />,
+        },
+        {
+          path: "swipe-cards",
+          element: <SwipeView />,
         },
         {
           path: "culture-of-marketing",

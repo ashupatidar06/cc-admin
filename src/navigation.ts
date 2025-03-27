@@ -5,7 +5,7 @@ import {
   IconMessage2Question,
   IconArrowNarrowRight,
   IconUsersGroup,
-  IconCalendarWeek
+  IconCalendarWeek,
 
   // IconCategoryFilled,
   // IconGoGame,
@@ -87,11 +87,11 @@ const navigation: (params?: {
           title: "Appointments",
           icon: IconCalendarWeek,
           path: "appointments",
-          // searchParams: {
-          //   page: "1",
-          //   limit: "10",
-          // },
-          // permission: "NAV_ADMIN_USER",
+        },
+        {
+          title: "Swipe Cards",
+          icon: IconCalendarWeek,
+          path: "swipe-cards",
         },
         {
           title: "Culture of Marketing",
