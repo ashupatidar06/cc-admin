@@ -112,7 +112,7 @@ const SwipeView: React.FC = () => {
         enableReinitialize
       >
         {({ setFieldValue, values }) => (
-          <Form className="grid grid-cols-3 gap-12">
+          <Form className="grid grid-cols-2 gap-12">
             {Object.keys(formValues).map((fieldName) => {
               const typedFieldName = fieldName as keyof SwipeViewFormValues;
               console.log(typedFieldName, formValues[typedFieldName]);
@@ -137,7 +137,7 @@ const SwipeView: React.FC = () => {
                     component="div"
                     className="text-red-500 text-sm"
                   />
-                  <div className="h-96 w-full p-1 flex items-center justify-center border">
+                  <div className="h-84 w-full p-1 flex items-center justify-center border">
                     <img
                       src={formValues[typedFieldName] as string}
                       alt=""
