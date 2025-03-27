@@ -6,7 +6,7 @@ import {
   IconArrowNarrowRight,
   IconUsersGroup,
   IconCalendarWeek,
-
+  IconSwipe
   // IconCategoryFilled,
   // IconGoGame,
   // IconBrandFlickr,
@@ -90,7 +90,7 @@ const navigation: (params?: {
         },
         {
           title: "Swipe Cards",
-          icon: IconCalendarWeek,
+          icon: IconSwipe,
           path: "swipe-cards",
         },
         {
