@@ -14,6 +14,7 @@ import AddCultureOfMarketingWrapper from "./modules/CultureOfMarketing/screens/A
 import AddCultureOfOriginWrapper from "./modules/CultureOfOrigin/screens/Add/AddCultureOfOriginWrapper";
 import AddAboutUsWrapper from "./modules/AboutUs/screens/Add/AboutUsWrapper";
 import SwipeView from "./modules/SwipeCards/SwipeView";
+import AddMotionCultFormWrapper from "./modules/MotionCult/screens/Add/AddMotionCultWrapper";
 // Import PageRoute Above
 
 const PageRoutes = () => {
@@ -67,6 +68,10 @@ const PageRoutes = () => {
         {
           path: "culture-of-origin",
           element: <AddCultureOfOriginWrapper />,
+        },
+        {
+          path: "motion-cult",
+          element: <AddMotionCultFormWrapper />,
         },
         {
           path: "about-us",

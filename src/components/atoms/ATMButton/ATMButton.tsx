@@ -44,7 +44,7 @@ export const ATMButton = ({
   const btnClasses = (combination: `${ButtonVariant}-${Color}`) => {
     switch (combination) {
       case "contained-primary":
-        return `bg-primary-70 text-white border border-primary-70 hover:bg-primary-60`;
+        return `bg-primary-70 text-white border border-primary-70 `;
 
       case "contained-secondary":
         return `bg-secondary text-white border border-secondary hover:bg-secondary-70`;
@@ -183,10 +183,9 @@ export const ATMButton = ({
         type={type}
         onClick={onClick}
         className={twMerge(
-          `font-semibold rounded-lg w-full h-full flex items-center justify-center text-sm px-4 transition-all duration-300 shadow  ${
-            disabled
-              ? "opacity-50 bg-gray-400 cursor-not-allowed"
-              : btnClasses(`${variant}-${color}`)
+          `font-semibold rounded-lg w-full h-full flex items-center justify-center text-sm px-4 transition-all duration-300 shadow  ${disabled
+            ? "opacity-50 bg-gray-400 cursor-not-allowed"
+            : btnClasses(`${variant}-${color}`)
           } ${extraClasses}`
         )}
         autoFocus={autoFocus}

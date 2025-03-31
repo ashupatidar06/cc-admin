@@ -103,11 +103,11 @@ const navigation: (params?: {
           icon: IconArrowNarrowRight,
           path: "culture-of-origin",
         },
-        // {
-        //   title: "Motion Cult",
-        //   icon: IconArrowNarrowRight,
-        //   path: "motion-cult",
-        // },
+        {
+          title: "Motioncult",
+          icon: IconArrowNarrowRight,
+          path: "motion-cult",
+        },
         {
           title: "About Us",
           icon: IconUsersGroup,
