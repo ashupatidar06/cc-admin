@@ -66,13 +66,23 @@ const AddMotionCultFormWrapper = () => {
     { resetForm, setSubmitting }: FormikHelpers<MotionCultFormValues>
   ) => {
     try {
-      await addMotionCult(values).then((res) => {
+      // Deep copy and remove `_id` from each workImg
+      const cleanedValues: MotionCultFormValues = {
+        ...values,
+        workImg: values.workImg.map(({ image_path, org_path }) => ({
+          image_path,
+          org_path,
+        })),
+      };
+
+      await addMotionCult(cleanedValues).then((res) => {
         if (res?.data?.status) {
           showToast("success", "Data added successfully");
         } else {
           showToast("error", res?.data?.message);
         }
       });
+
       resetForm();
     } catch (err) {
       console.error(err);
@@ -81,6 +91,7 @@ const AddMotionCultFormWrapper = () => {
       setSubmitting(false);
     }
   };
+
 
   return (
     <Formik<MotionCultFormValues>

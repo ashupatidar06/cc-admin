@@ -1,21 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FormikProps } from "formik";
 import { ATMButton } from "src/components/atoms/ATMButton/ATMButton";
 import ATMCircularProgress from "src/components/atoms/ATMCircularProgress/ATMCircularProgress";
 import ATMTextArea from "src/components/atoms/FormElements/ATMTextArea/ATMTextArea";
 import ATMTextField from "src/components/atoms/FormElements/ATMTextField/ATMTextField";
 import { useUploadFileMutation } from "src/services/AuthServices";
-import { IconCamera } from "@tabler/icons-react";
+import { IconCamera, IconPlus, IconTrash } from "@tabler/icons-react";
 
 type Props = {
   formikProps: FormikProps<any>;
   onClose: () => void;
   type: "ADD" | "EDIT";
   isLoading?: boolean;
-  isFetching?: boolean
+  isFetching?: boolean;
 };
-
-// ... imports stay the same
 
 const MotionCultFormLayout = ({
   formikProps,
@@ -66,6 +64,18 @@ const MotionCultFormLayout = ({
     } catch (error) {
       console.error(`Error uploading ${fieldName}:`, error);
     }
+  };
+
+  const handleAddWorkImg = () => {
+    const newWorkImg = { image_path: "", org_path: "" };
+    setFieldValue("workImg", [...values.workImg, newWorkImg]);
+  };
+
+  const handleRemoveWorkImg = (index: number) => {
+    const updated = [...values.workImg];
+    updated.splice(index, 1); // Remove the item at index
+    setFieldValue("workImg", updated);
+
   };
 
   return (
@@ -140,7 +150,10 @@ const MotionCultFormLayout = ({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {values?.carousel?.map((img: string, index: number) => (
-                <div key={index} className="h-48 w-full p-1 flex items-center justify-center border relative rounded-lg overflow-hidden">
+                <div
+                  key={index}
+                  className="h-48 w-full p-1 flex items-center justify-center border relative rounded-lg overflow-hidden"
+                >
                   <input
                     id={`carousel-file-upload-${index}`}
                     type="file"
@@ -169,15 +182,45 @@ const MotionCultFormLayout = ({
           </div>
 
           {/* Work Section */}
+          {/* Work Section */}
           <div className="border p-4 rounded-lg mb-4 bg-white shadow">
-            <h4 className="text-lg font-bold text-gray-700 mb-2">Work Section</h4>
-            {imgIsloading ? <ATMCircularProgress /> : null}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {values?.workImg?.map((item: any, index: number) => (
+            <h4 className="text-lg font-bold text-gray-700 mb-4 flex justify-between items-center">
+              Work Section
+              <ATMButton
+                type="button"
+                onClick={() => {
+                  const newImage = { image_path: "", org_path: "" };
+                  setFieldValue("workImg", [newImage, ...values.workImg]);
+                }}
+                color="primary"
+              >
+                + Add Image
+              </ATMButton>
+            </h4>
 
-                <div key={index} className="flex flex-col gap-2">
-                  {/* Image Upload */}
-                  <div className="relative h-48 w-full border rounded-lg overflow-hidden">
+            {imgIsloading ? <ATMCircularProgress /> : null}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {(values?.workImg || []).map((item: any, index: number) => (
+                <div
+                  key={index}
+                  className="relative border rounded-lg p-4 bg-gray-50 shadow"
+                >
+                  {/* 🗑️ Delete button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updatedImages = [...values.workImg];
+                      updatedImages.splice(index, 1);
+                      setFieldValue("workImg", updatedImages);
+                    }}
+                    className="absolute top-2  right-2 text-red-600 hover:text-red-800 text-3xl font-bold"
+                  >
+                    &times;
+                  </button>
+
+                  {/* 📸 Image preview or placeholder */}
+                  <div className="relative h-48 w-full border rounded-lg overflow-hidden mb-4 mt-8 bg-white">
                     <input
                       id={`workImg-file-upload-${index}`}
                       type="file"
@@ -191,24 +234,28 @@ const MotionCultFormLayout = ({
                       htmlFor={`workImg-file-upload-${index}`}
                       className="cursor-pointer absolute top-2 right-2 bg-white p-2 rounded-full shadow-lg"
                     >
-                      <IconCamera className="h-8 w-8 text-gray-600" />
+                      <IconCamera className="h-6 w-6 text-gray-600" />
                     </label>
 
-                    {item.image_path && (
+                    {item?.image_path ? (
                       <img
                         src={item.image_path}
-                        alt={`workimg-${index}`}
+                        alt={`Work Image ${index + 1}`}
                         className="h-full w-full object-cover"
                       />
+                    ) : (
+                      <div className="h-full w-full flex items-center justify-center text-gray-400 text-sm">
+                        No Image Selected
+                      </div>
                     )}
                   </div>
 
-                  {/* org_path Input */}
+                  {/* 📝 org_path field */}
                   <ATMTextField
                     name={`workImg[${index}].org_path`}
                     label="Original Path"
                     placeholder="Enter original path"
-                    value={item.org_path || ""}
+                    value={item?.org_path || ""}
                     onChange={(e) =>
                       setFieldValue(`workImg[${index}].org_path`, e.target.value)
                     }
@@ -218,6 +265,8 @@ const MotionCultFormLayout = ({
               ))}
             </div>
           </div>
+
+
         </div>
       )}
     </>
