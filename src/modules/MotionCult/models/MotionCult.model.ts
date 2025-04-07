@@ -23,21 +23,21 @@ export type MotionCult = {
 };
 
 
-export type MotionCultFormValues = {
-  body: string;
-  Dilemma: {
-    title: string;
+  export type MotionCultFormValues = {
     body: string;
+    Dilemma: {
+      title: string;
+      body: string;
+    };
+    motion: {
+      title: string;
+      body: string;
+    };
+    quoteTitle: string;
+    carousel: string[];
+    workImg: {
+      image_path: string;
+      org_path: string;
+    }[]; // updated to array of objects
   };
-  motion: {
-    title: string;
-    body: string;
-  };
-  quoteTitle: string;
-  carousel: string[];
-  workImg: {
-    image_path: string;
-    org_path: string;
-  }[]; // updated to array of objects
-};
 

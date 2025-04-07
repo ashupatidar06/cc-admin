@@ -15,6 +15,8 @@ import AddCultureOfOriginWrapper from "./modules/CultureOfOrigin/screens/Add/Add
 import AddAboutUsWrapper from "./modules/AboutUs/screens/Add/AboutUsWrapper";
 import SwipeView from "./modules/SwipeCards/SwipeView";
 import AddMotionCultFormWrapper from "./modules/MotionCult/screens/Add/AddMotionCultWrapper";
+import AddStoryWrapper from "./modules/Story/screens/Add/StoryWrapper";
+import AddExploreWrapper from "./modules/Explore/screens/Add/ExploreWrapper";
 // Import PageRoute Above
 
 const PageRoutes = () => {
@@ -68,6 +70,14 @@ const PageRoutes = () => {
         {
           path: "culture-of-origin",
           element: <AddCultureOfOriginWrapper />,
+        },
+        {
+          path: "story",
+          element: <AddStoryWrapper />,
+        },
+        {
+          path: "explore",
+          element: <AddExploreWrapper />,
         },
         {
           path: "motion-cult",

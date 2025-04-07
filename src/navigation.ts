@@ -109,6 +109,16 @@ const navigation: (params?: {
           path: "motion-cult",
         },
         {
+          title: "Story",
+          icon: IconArrowNarrowRight,
+          path: "story",
+        },
+        {
+          title: "Explore",
+          icon: IconArrowNarrowRight,
+          path: "explore",
+        },
+        {
           title: "About Us",
           icon: IconUsersGroup,
           path: "about-us",
