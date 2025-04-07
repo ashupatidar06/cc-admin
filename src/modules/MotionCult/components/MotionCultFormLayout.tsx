@@ -15,18 +15,18 @@ type Props = {
   isFetching?: boolean
 };
 
+// ... imports stay the same
+
 const MotionCultFormLayout = ({
   formikProps,
   onClose,
   type,
   isLoading,
-  isFetching
+  isFetching,
 }: Props) => {
-  const { values, setFieldValue, isSubmitting, handleBlur, handleSubmit } =
-    formikProps;
+  const { values, setFieldValue, isSubmitting, handleBlur, handleSubmit } = formikProps;
   const [uploadFile, { isLoading: imgIsloading }] = useUploadFileMutation();
 
-  console.log("values", values)
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
     setFieldValue: any,
@@ -39,41 +39,34 @@ const MotionCultFormLayout = ({
     const sanitizedFileName = file.name.replace(/\s+/g, "_");
     const newFile = new File([file], sanitizedFileName, { type: file.type });
 
-    // setFieldValue(fieldName, newFile);
-
     const formData = new FormData();
     formData.append("file", newFile);
     formData.append("folder", "motionCult");
-    console.log("response?.fileUrl", fieldName)
 
     try {
       const response = await uploadFile({
         body: formData,
         fileName: fieldName,
       }).unwrap();
+
       if (response?.fileUrl) {
         if (fieldName === "carousel") {
-
-          const updateImg = [...values?.carousel]
-          updateImg[index] = response.fileUrl
+          const updateImg = [...values?.carousel];
+          updateImg[index] = response.fileUrl;
           setFieldValue("carousel", [...updateImg]);
         } else if (fieldName === "workImg") {
-
-          const updateWorkImg = [...values?.workImg]
-          updateWorkImg[index] = response.fileUrl
-
-          console.log("updateWorkImg", updateWorkImg)
-          setFieldValue("workImg", [...updateWorkImg]);
+          const updatedWorkImgs = [...values.workImg];
+          updatedWorkImgs[index] = {
+            ...updatedWorkImgs[index],
+            image_path: response.fileUrl,
+          };
+          setFieldValue("workImg", updatedWorkImgs);
         }
       }
     } catch (error) {
       console.error(`Error uploading ${fieldName}:`, error);
     }
   };
-
-  useEffect(() => {
-
-  }, [values?.carousel, values?.workImg])
 
   return (
     <>
@@ -106,12 +99,10 @@ const MotionCultFormLayout = ({
             onBlur={handleBlur}
           />
 
-          {/* Sections: Dilemma and Motion */}
+          {/* Sections */}
           {["Dilemma", "motion"].map((section) => (
             <div key={section} className="border p-4 rounded-lg mb-4 bg-white shadow">
-              <h4 className="text-lg font-bold text-gray-700 mb-2 capitalize">
-                {section}
-              </h4>
+              <h4 className="text-lg font-bold text-gray-700 mb-2 capitalize">{section}</h4>
 
               <ATMTextField
                 name={`${section}.title`}
@@ -147,23 +138,19 @@ const MotionCultFormLayout = ({
           <div className="border p-4 rounded-lg mb-4 bg-white shadow">
             <h4 className="text-lg font-bold text-gray-700 mb-2">Carousel Images</h4>
 
-
-
-            {/* Image Preview */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {values?.carousel?.map((img: string, index: number) => (
                 <div key={index} className="h-48 w-full p-1 flex items-center justify-center border relative rounded-lg overflow-hidden">
-
-                  {/* Hidden File Input */}
                   <input
                     id={`carousel-file-upload-${index}`}
                     type="file"
                     accept="image/*"
-                    onChange={(event) => handleFileChange(event, setFieldValue, "carousel", index)}
+                    onChange={(event) =>
+                      handleFileChange(event, setFieldValue, "carousel", index)
+                    }
                     className="hidden"
                   />
 
-                  {/* Camera Icon as Upload Button */}
                   <label
                     htmlFor={`carousel-file-upload-${index}`}
                     className="cursor-pointer absolute top-2 right-2 bg-white p-2 rounded-full shadow-lg"
@@ -171,71 +158,65 @@ const MotionCultFormLayout = ({
                     <IconCamera className="h-8 w-8 text-gray-600" />
                   </label>
 
-                  {/* Image Preview */}
-                  {img ? (
-                    <img
-                      src={img}
-                      alt={`carousel-image-${index}`}
-                      className="h-full w-full object-cover rounded"
-                    />
-                  ) : (
-                    <div className="h-full w-full flex items-center justify-center text-gray-400">
-                      No Image
-                    </div>
-                  )}
-
+                  <img
+                    src={img}
+                    alt={`carousel-image-${index}`}
+                    className="h-full w-full object-cover rounded"
+                  />
                 </div>
               ))}
             </div>
-
           </div>
 
-
-          {/* Work Images */}
+          {/* Work Section */}
           <div className="border p-4 rounded-lg mb-4 bg-white shadow">
             <h4 className="text-lg font-bold text-gray-700 mb-2">Work Section</h4>
             {imgIsloading ? <ATMCircularProgress /> : null}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {values?.workImg?.map((img: string, index: number) => (
-                <div key={index} className="h-48 w-full p-1 flex items-center justify-center border relative rounded-lg overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {values?.workImg?.map((item: any, index: number) => (
 
-                  {/* Hidden File Input */}
-                  <input
-                    id={`workImg-file-upload-${index}`}
-                    type="file"
-                    accept="image/*,video/*"
-                    onChange={(event) => handleFileChange(event, setFieldValue, "workImg", index)}
-                    className="hidden"
+                <div key={index} className="flex flex-col gap-2">
+                  {/* Image Upload */}
+                  <div className="relative h-48 w-full border rounded-lg overflow-hidden">
+                    <input
+                      id={`workImg-file-upload-${index}`}
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) =>
+                        handleFileChange(event, setFieldValue, "workImg", index)
+                      }
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor={`workImg-file-upload-${index}`}
+                      className="cursor-pointer absolute top-2 right-2 bg-white p-2 rounded-full shadow-lg"
+                    >
+                      <IconCamera className="h-8 w-8 text-gray-600" />
+                    </label>
+
+                    {item.image_path && (
+                      <img
+                        src={item.image_path}
+                        alt={`workimg-${index}`}
+                        className="h-full w-full object-cover"
+                      />
+                    )}
+                  </div>
+
+                  {/* org_path Input */}
+                  <ATMTextField
+                    name={`workImg[${index}].org_path`}
+                    label="Original Path"
+                    placeholder="Enter original path"
+                    value={item.org_path || ""}
+                    onChange={(e) =>
+                      setFieldValue(`workImg[${index}].org_path`, e.target.value)
+                    }
+                    onBlur={handleBlur}
                   />
-
-                  {/* Camera Icon as Upload Button */}
-                  <label
-                    htmlFor={`workImg-file-upload-${index}`}
-                    className="cursor-pointer absolute top-2 right-2 bg-white p-2 rounded-full shadow-lg"
-                  >
-                    <IconCamera className="h-8 w-8 text-gray-600" />
-                  </label>
-
-                  {/* Image Preview */}
-                  {img.endsWith('.mp4') || img.endsWith('.webm') || img.endsWith('.ogg') ? (
-                    <video
-                      src={img}
-                      className="h-full w-full object-cover rounded"
-                      controls
-                    />
-                  ) : (
-                    <img
-                      src={img}
-                      alt={`workimg-image-${index}`}
-                      className="h-full w-full object-cover rounded"
-                    />
-                  )}
-
-
                 </div>
               ))}
             </div>
-
           </div>
         </div>
       )}

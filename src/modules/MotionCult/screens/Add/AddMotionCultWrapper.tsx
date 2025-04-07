@@ -6,51 +6,59 @@ import { object, string, array } from "yup";
 import { useAddMotionCultMutation, useGetMotionCultQuery } from "../../service/MotionCultServices";
 import { showToast } from "src/utils/showToaster";
 
-// type Props = {
-//   onClose: () => void;
-// };
-
 const AddMotionCultFormWrapper = () => {
   const [addMotionCult, { isLoading: addLoading }] = useAddMotionCultMutation();
-  const { data, isLoading, isFetching } = useGetMotionCultQuery("")
+  const { data, isLoading, isFetching } = useGetMotionCultQuery("");
 
-  const [cultData, setCultData] = useState<any>({})
+  const [cultData, setCultData] = useState<any>({});
 
   useEffect(() => {
     if (!isLoading && !isFetching) {
-      setCultData(data?.data)
+      setCultData(data?.data);
     }
-
   }, [data, isLoading, isFetching]);
   console.log(cultData, "cultData")
   const initialValues: MotionCultFormValues = {
-    body: cultData?.body,
+    body: cultData?.body || "",
     Dilemma: {
-      title: cultData?.Dilemma?.title,
-      body: cultData?.Dilemma?.body,
+      title: cultData?.Dilemma?.title || "",
+      body: cultData?.Dilemma?.body || "",
     },
     motion: {
-      title: cultData?.motion?.title,
-      body: cultData?.motion?.body,
+      title: cultData?.motion?.title || "",
+      body: cultData?.motion?.body || "",
     },
-    quoteTitle: cultData?.quoteTitle,
-    carousel: cultData?.carousel,
-    workImg: cultData?.workImg,
+    quoteTitle: cultData?.quoteTitle || "",
+    carousel: cultData?.carousel || [],
+    workImg: cultData?.workImg || [],
   };
 
   const validationSchema = object().shape({
     body: string().required("Please enter body"),
-    Dilemma: object().shape({
-      title: string().required("Please enter dilemma title"),
-      body: string().required("Please enter dilemma body"),
-    }).required(),
-    motion: object().shape({
-      title: string().required("Please enter motion title"),
-      body: string().required("Please enter motion body"),
-    }).required(),
+    Dilemma: object()
+      .shape({
+        title: string().required("Please enter dilemma title"),
+        body: string().required("Please enter dilemma body"),
+      })
+      .required(),
+    motion: object()
+      .shape({
+        title: string().required("Please enter motion title"),
+        body: string().required("Please enter motion body"),
+      })
+      .required(),
     quoteTitle: string().required("Please enter quote title"),
-    carousel: array().of(string()).required("Please add at least one carousel item"),
-    workImg: array().of(string()).required("Please add at least one work image"),
+    carousel: array()
+      .of(string().required("Carousel item cannot be empty"))
+      .required("Please add at least one carousel item"),
+    workImg: array()
+      .of(
+        object().shape({
+          image_path: string().required("Image path is required"),
+          org_path: string().required("Original path is required"),
+        })
+      )
+      .required("Please add at least one work image"),
   });
 
   const handleSubmit = async (
@@ -60,13 +68,11 @@ const AddMotionCultFormWrapper = () => {
     try {
       await addMotionCult(values).then((res) => {
         if (res?.data?.status) {
-
           showToast("success", "Data added successfully");
         } else {
           showToast("error", res?.data?.message);
-
         }
-      })
+      });
       resetForm();
     } catch (err) {
       console.error(err);
@@ -85,12 +91,13 @@ const AddMotionCultFormWrapper = () => {
     >
       {(formikProps) => (
         <Form>
-          <MotionCultFormLayout formikProps={formikProps}
+          <MotionCultFormLayout
+            formikProps={formikProps}
             onClose={() => { }}
             isLoading={addLoading}
             isFetching={isLoading}
-
-            type="ADD" />
+            type="ADD"
+          />
         </Form>
       )}
     </Formik>
