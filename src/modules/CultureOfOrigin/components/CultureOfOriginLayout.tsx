@@ -66,7 +66,7 @@ const CultureOfOriginLayout = ({
           <ATMCircularProgress />
         </div>
       ) : (
-        <div className="flex flex-col gap-y-6 p-6 bg-white shadow-lg rounded-lg">
+        <div className="flex flex-col gap-y-6 p-6 bg-slate-100 shadow-lg rounded-lg">
           <div className="flex justify-between border-b-2 pb-4 border-black">
             <h3 className="text-lg font-bold">CULTURE OF ORIGIN</h3>
             <ATMButton

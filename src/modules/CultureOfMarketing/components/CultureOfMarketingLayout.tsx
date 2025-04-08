@@ -16,7 +16,7 @@ type Props = {
 const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
   const { values, setFieldValue, handleBlur, handleSubmit } = formikProps;
 
-  const [uploadFile ,{isLoading:imgIsloading}] = useUploadFileMutation();
+  const [uploadFile, { isLoading: imgIsloading }] = useUploadFileMutation();
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -62,7 +62,7 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
           <ATMCircularProgress />
         </div>
       ) : (
-        <div className="flex flex-col gap-y-6 p-6 bg-white shadow-lg rounded-lg">
+        <div className="flex flex-col gap-y-6 p-6 bg-slate-100 shadow-lg rounded-lg">
           <div className="flex justify-between border-b-2 pb-4 border-black">
             <h3 className="text-lg font-bold">CULTURE OF MARKETING</h3>
 
@@ -132,7 +132,7 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
                 ) : null}
 
                 <div className="mb-4">
-               
+
                   <label className=" uppercase text-sm font-bold py-2 px-2">
                     {"upload image"}
                   </label>
@@ -144,7 +144,7 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
                     }
                     className="border p-2 rounded"
                   />
-            
+
                   <div className="h-96 w-full p-1 flex items-center justify-center border">
                     <img
                       src={values[section]?.img}

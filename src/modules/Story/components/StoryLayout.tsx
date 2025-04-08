@@ -71,7 +71,7 @@ const CultureOfOriginLayout = ({
           <ATMCircularProgress />
         </div>
       ) : (
-        <div className="flex flex-col gap-y-6 p-6 bg-white shadow-lg rounded-lg">
+        <div className="flex flex-col gap-y-6 p-6 bg-slate-100 shadow-lg rounded-lg">
           <div className="flex justify-between border-b-2 pb-4 border-black">
             <h3 className="text-lg font-bold">STORY SECTION</h3>
             <ATMButton
@@ -88,7 +88,7 @@ const CultureOfOriginLayout = ({
             {values.data.map((block: any, index: any) => (
               <div
                 key={index}
-                className="border p-4 rounded-lg mb-4 bg-white shadow relative"
+                className="border p-4 m-4 rounded-lg mb-4 bg-white shadow-lg relative"
               >
                 <h4 className="text-lg font-bold mb-4 text-gray-700">
                   Section {index + 1}
@@ -114,9 +114,10 @@ const CultureOfOriginLayout = ({
                   label="Body"
                   placeholder="Enter Body"
                   onBlur={handleBlur}
+                  className="mb-8"
                 />
 
-                <label className="uppercase text-sm font-bold py-2 px-2">
+                <label className="uppercase text-sm font-bold py-8 px-2">
                   Upload Image
                 </label>
                 <input
