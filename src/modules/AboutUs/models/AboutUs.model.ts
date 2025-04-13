@@ -6,6 +6,7 @@ export interface AboutUsFormValues {
     name: string;
     link: string;
     role: string;
+    profileImage: string;
     description: string;
   }[];
 }

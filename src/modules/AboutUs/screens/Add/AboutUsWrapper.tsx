@@ -14,7 +14,7 @@ const AddAboutUsWrapper = () => {
     body: data?.data?.body,
     aboutUs: data?.data?.aboutUs,
     team: data?.data?.team?.map((ele: any) => {
-      return { name: ele?.name, link: ele?.link, role: ele?.role, description: ele?.description }
+      return { name: ele?.name, link: ele?.link, role: ele?.role, profileImage: ele?.profileImage, description: ele?.description }
     })
 
 
@@ -29,6 +29,7 @@ const AddAboutUsWrapper = () => {
         name: string().required("Name is required"),
         link: string().url("Invalid URL format"),
         role: string().required("Role is required"),
+        profileImage: string().required("Profile Image is required"),
         description: string().required("Description is required"),
       })
     ).min(1, "At least one team member is required"),
@@ -38,6 +39,7 @@ const AddAboutUsWrapper = () => {
     values: AboutUsFormValues,
     { resetForm, setSubmitting }: FormikHelpers<AboutUsFormValues>
   ) => {
+    console.log("----------------00000000000----------------")
     try {
       await addAboutUs(values).then((res) => {
         if (res?.data?.status) {

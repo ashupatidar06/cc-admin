@@ -73,7 +73,7 @@ const CultureOfMarketingLayout = ({ formikProps, isLoading }: Props) => {
               color="primary"
               disabled={imgIsloading}
             >
-              Add
+              Save
             </ATMButton>
           </div>
           {/* <ATMTextField

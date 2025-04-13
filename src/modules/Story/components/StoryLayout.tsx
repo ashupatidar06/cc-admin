@@ -80,7 +80,7 @@ const CultureOfOriginLayout = ({
               onClick={handleSubmit}
               color="primary"
             >
-              {type === "ADD" ? "Add" : "Update"}
+              Save
             </ATMButton>
           </div>
           <div className="grid grid-cols-2 gap-1 ">

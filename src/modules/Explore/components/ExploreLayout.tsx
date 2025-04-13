@@ -82,7 +82,7 @@ const CultureOfOriginLayout = ({
               onClick={handleSubmit}
               color="primary"
             >
-              {type === "ADD" ? "Add" : "Update"}
+              Save
             </ATMButton>
           </div>
 
