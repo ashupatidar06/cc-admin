@@ -35,7 +35,9 @@ const AddStoryWrapper = () => {
     { resetForm, setSubmitting }: FormikHelpers<StoryFormValues>
   ) => {
     try {
-      const response = await addStory(values);
+      const cleanedData = values.data.map(({ _id, ...rest }) => rest);
+
+      const response = await addStory({ data: cleanedData });
 
       if (response?.data?.status) {
         showToast("success", "Story saved successfully!");
