@@ -15,20 +15,36 @@ const AddStoryWrapper = () => {
       {
         title: "",
         image: "",
-        body: "",
-        date: ""
+        head: "",
+        date: "",
+        para1: "",
+        para2: "",
+        blockquote: "",
+        para3: "",
+        bullets: [""],
+        para4: ""
       },
     ],
   };
 
   const validationSchema = object().shape({
-    data: array().of(
-      object().shape({
-        title: string().required("Title is required"),
-        image: string().url("Invalid image URL").required("Image is required"),
-        body: string().required("Body is required"),
-      })
-    ).min(1, "At least one story is required"),
+    data: array()
+      .of(
+        object().shape({
+          title: string().required("Title is required"),
+          image: string().url("Invalid image URL").required("Image is required"),
+          head: string().required("Head is required"),
+          para1: string().required("Paragraph 1 is required"),
+          para2: string().required("Paragraph 2 is required"),
+          blockquote: string().required("Blockquote is required"),
+          para3: string().required("Paragraph 3 is required"),
+          bullets: array()
+            .of(string().required("Bullet point is required"))
+            .min(1, "At least one bullet is required"),
+          para4: string().required("Paragraph 4 is required"),
+        })
+      )
+      .min(1, "At least one story is required"),
   });
 
   const handleSubmit = async (

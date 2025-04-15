@@ -54,7 +54,18 @@ const CultureOfOriginLayout = ({
   };
 
   const handleAddSection = () => {
-    const newSection = { title: "", image: "", body: "" };
+    const newSection = {
+      title: "",
+      image: "",
+      head: "",
+      date: "",
+      para1: "",
+      para2: "",
+      blockquote: "",
+      para3: "",
+      bullets: [""],
+      para4: "",
+    };
     setFieldValue("data", [...values.data, newSection]);
   };
 
@@ -83,12 +94,12 @@ const CultureOfOriginLayout = ({
               Save
             </ATMButton>
           </div>
-          <div className="grid grid-cols-2 gap-1 ">
 
-            {values.data.map((block: any, index: any) => (
+          <div className="grid grid-cols-1 gap-6">
+            {values.data.map((block, index) => (
               <div
                 key={index}
-                className="border p-4 m-4 rounded-lg mb-4 bg-white shadow-lg relative"
+                className="border p-4 rounded-lg bg-white shadow-lg relative"
               >
                 <h4 className="text-lg font-bold mb-4 text-gray-700">
                   Section {index + 1}
@@ -105,23 +116,132 @@ const CultureOfOriginLayout = ({
                   onBlur={handleBlur}
                 />
 
-                <ATMTextArea
-                  name={`data[${index}].body`}
-                  value={block.body}
+                <ATMTextField
+                  name={`data[${index}].head`}
+                  value={block.head}
                   onChange={(e) =>
-                    setFieldValue(`data[${index}].body`, e.target.value)
+                    setFieldValue(`data[${index}].head`, e.target.value)
                   }
-                  label="Body"
-                  placeholder="Enter Body"
+                  label="Head"
+                  placeholder="Enter Headline"
                   onBlur={handleBlur}
-                  className="mb-8"
                 />
-                {block.date && (
-                  <p className="text-sm text-gray-500 mt-4 ml-1 mb-4">
-                    <strong className="text-black">Date:</strong> {new Date(block.date).toLocaleString()}
-                  </p>
-                )}
-                <label className="uppercase text-sm font-bold py-8 px-2">
+
+                <ATMTextField
+                  name={`data[${index}].date`}
+                  disabled={true}
+                  value={block.date}
+                  onChange={(e) =>
+                    setFieldValue(`data[${index}].date`, e.target.value)
+                  }
+                  label="Date"
+                  placeholder="Enter Date"
+                  onBlur={handleBlur}
+                />
+
+                <ATMTextArea
+                  name={`data[${index}].para1`}
+                  value={block.para1}
+                  onChange={(e) =>
+                    setFieldValue(`data[${index}].para1`, e.target.value)
+                  }
+                  label="Paragraph 1"
+                  placeholder="Enter Paragraph 1"
+                  onBlur={handleBlur}
+                />
+
+                <ATMTextArea
+                  name={`data[${index}].para2`}
+                  value={block.para2}
+                  onChange={(e) =>
+                    setFieldValue(`data[${index}].para2`, e.target.value)
+                  }
+                  label="Paragraph 2"
+                  placeholder="Enter Paragraph 2"
+                  onBlur={handleBlur}
+                />
+
+                <ATMTextArea
+                  name={`data[${index}].blockquote`}
+                  value={block.blockquote}
+                  onChange={(e) =>
+                    setFieldValue(`data[${index}].blockquote`, e.target.value)
+                  }
+                  label="Blockquote"
+                  placeholder="Enter Blockquote"
+                  onBlur={handleBlur}
+                />
+
+                <ATMTextArea
+                  name={`data[${index}].para3`}
+                  value={block.para3}
+                  onChange={(e) =>
+                    setFieldValue(`data[${index}].para3`, e.target.value)
+                  }
+                  label="Paragraph 3"
+                  placeholder="Enter Paragraph 3"
+                  onBlur={handleBlur}
+                />
+
+                <label className="text-sm font-medium text-gray-600 mt-4 block">
+                  Bullets
+                </label>
+                {block.bullets.map((bullet, bulletIndex) => (
+                  <div key={bulletIndex} className="flex gap-2 items-center mb-2">
+                    <div className="flex-1">
+                      <ATMTextField
+                        label=""
+                        name={`data[${index}].bullets[${bulletIndex}]`}
+                        value={bullet}
+                        onChange={(e) =>
+                          setFieldValue(
+                            `data[${index}].bullets[${bulletIndex}]`,
+                            e.target.value
+                          )
+                        }
+                        placeholder={`Bullet ${bulletIndex + 1}`}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updatedBullets = [...block.bullets];
+                        updatedBullets.splice(bulletIndex, 1);
+                        setFieldValue(`data[${index}].bullets`, updatedBullets);
+                      }}
+                      className="text-red-500 mr-8 font-bold"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+
+                <ATMButton
+                  type="button"
+                  color="primary"
+                  onClick={() =>
+                    setFieldValue(`data[${index}].bullets`, [
+                      ...block.bullets,
+                      "",
+                    ])
+                  }
+                  extraClasses="w-1/3"
+                >
+                  + Add Bullet
+                </ATMButton>
+
+                <ATMTextArea
+                  name={`data[${index}].para4`}
+                  value={block.para4}
+                  onChange={(e) =>
+                    setFieldValue(`data[${index}].para4`, e.target.value)
+                  }
+                  label="Paragraph 4"
+                  placeholder="Enter Paragraph 4"
+                  onBlur={handleBlur}
+                />
+
+                <label className="uppercase text-sm font-bold py-2 px-2 mt-4 block">
                   Upload Image
                 </label>
                 <input
@@ -134,7 +254,7 @@ const CultureOfOriginLayout = ({
                 />
 
                 {block.image && (
-                  <div className="h-96 w-full p-1 flex items-center justify-center border mt-2">
+                  <div className="h-52 w-52 p-1 flex items-center justify-center border mt-2">
                     <img
                       src={block.image}
                       alt="uploaded"
@@ -154,7 +274,7 @@ const CultureOfOriginLayout = ({
             ))}
           </div>
 
-          <ATMButton type="button" color="primary" onClick={handleAddSection}>
+          <ATMButton type="button" color="primary" onClick={handleAddSection} extraClasses="w-1/3">
             + Add New Section
           </ATMButton>
         </div>
