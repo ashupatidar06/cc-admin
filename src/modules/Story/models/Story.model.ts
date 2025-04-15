@@ -2,6 +2,7 @@ export type StoryBlock = {
   title: string;
   image: string;
   body: string;
+  date: string
   _id: string
 };
 

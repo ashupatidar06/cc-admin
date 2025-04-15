@@ -16,6 +16,7 @@ const AddStoryWrapper = () => {
         title: "",
         image: "",
         body: "",
+        date: ""
       },
     ],
   };
@@ -35,7 +36,7 @@ const AddStoryWrapper = () => {
     { resetForm, setSubmitting }: FormikHelpers<StoryFormValues>
   ) => {
     try {
-      const cleanedData = values.data.map(({ _id, ...rest }) => rest);
+      const cleanedData = values.data.map(({ _id, date, ...rest }) => rest);
 
       const response = await addStory({ data: cleanedData });
 

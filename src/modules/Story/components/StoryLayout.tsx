@@ -116,7 +116,11 @@ const CultureOfOriginLayout = ({
                   onBlur={handleBlur}
                   className="mb-8"
                 />
-
+                {block.date && (
+                  <p className="text-sm text-gray-500 mt-4 ml-1 mb-4">
+                    <strong className="text-black">Date:</strong> {new Date(block.date).toLocaleString()}
+                  </p>
+                )}
                 <label className="uppercase text-sm font-bold py-8 px-2">
                   Upload Image
                 </label>
