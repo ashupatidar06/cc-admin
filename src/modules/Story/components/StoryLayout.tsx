@@ -104,91 +104,112 @@ const CultureOfOriginLayout = ({
                 <h4 className="text-lg font-bold mb-4 text-gray-700">
                   Section {index + 1}
                 </h4>
+                <div className="mb-4">
+                  <ATMTextField
+                    name={`data[${index}].title`}
+                    value={block.title}
+                    onChange={(e) =>
+                      setFieldValue(`data[${index}].title`, e.target.value)
+                    }
+                    label="Title"
+                    placeholder="Enter Title"
+                    onBlur={handleBlur}
+                  />
+                </div>
 
-                <ATMTextField
-                  name={`data[${index}].title`}
-                  value={block.title}
-                  onChange={(e) =>
-                    setFieldValue(`data[${index}].title`, e.target.value)
-                  }
-                  label="Title"
-                  placeholder="Enter Title"
-                  onBlur={handleBlur}
-                />
+                <div className="mb-4">
 
-                <ATMTextField
-                  name={`data[${index}].head`}
-                  value={block.head}
-                  onChange={(e) =>
-                    setFieldValue(`data[${index}].head`, e.target.value)
-                  }
-                  label="Head"
-                  placeholder="Enter Headline"
-                  onBlur={handleBlur}
-                />
+                  <ATMTextField
+                    name={`data[${index}].head`}
+                    value={block.head}
+                    onChange={(e) =>
+                      setFieldValue(`data[${index}].head`, e.target.value)
+                    }
+                    label="Head"
+                    placeholder="Enter Headline"
+                    onBlur={handleBlur}
+                  />
+                </div>
 
-                <ATMTextField
-                  name={`data[${index}].date`}
-                  disabled={true}
-                  value={block.date}
-                  onChange={(e) =>
-                    setFieldValue(`data[${index}].date`, e.target.value)
-                  }
-                  label="Date"
-                  placeholder="Enter Date"
-                  onBlur={handleBlur}
-                />
+                <div className="mb-4">
 
-                <ATMTextArea
-                  name={`data[${index}].para1`}
-                  value={block.para1}
-                  onChange={(e) =>
-                    setFieldValue(`data[${index}].para1`, e.target.value)
-                  }
-                  label="Paragraph 1"
-                  placeholder="Enter Paragraph 1"
-                  onBlur={handleBlur}
-                />
+                  <ATMTextField
+                    name={`data[${index}].date`}
+                    disabled={true}
+                    value={block.date}
+                    onChange={(e) =>
+                      setFieldValue(`data[${index}].date`, e.target.value)
+                    }
+                    label="Date"
+                    placeholder="Enter Date"
+                    onBlur={handleBlur}
+                  />
+                </div>
 
-                <ATMTextArea
-                  name={`data[${index}].para2`}
-                  value={block.para2}
-                  onChange={(e) =>
-                    setFieldValue(`data[${index}].para2`, e.target.value)
-                  }
-                  label="Paragraph 2"
-                  placeholder="Enter Paragraph 2"
-                  onBlur={handleBlur}
-                />
+                <div className="mb-4">
 
-                <ATMTextArea
-                  name={`data[${index}].blockquote`}
-                  value={block.blockquote}
-                  onChange={(e) =>
-                    setFieldValue(`data[${index}].blockquote`, e.target.value)
-                  }
-                  label="Blockquote"
-                  placeholder="Enter Blockquote"
-                  onBlur={handleBlur}
-                />
 
-                <ATMTextArea
-                  name={`data[${index}].para3`}
-                  value={block.para3}
-                  onChange={(e) =>
-                    setFieldValue(`data[${index}].para3`, e.target.value)
-                  }
-                  label="Paragraph 3"
-                  placeholder="Enter Paragraph 3"
-                  onBlur={handleBlur}
-                />
+                  <ATMTextArea
+                    name={`data[${index}].para1`}
+                    value={block.para1}
+                    onChange={(e) =>
+                      setFieldValue(`data[${index}].para1`, e.target.value)
+                    }
+                    label="Paragraph 1"
+                    placeholder="Enter Paragraph 1"
+                    onBlur={handleBlur}
+                  />
+                </div>
+
+                <div className="mb-4">
+
+                  <ATMTextArea
+                    name={`data[${index}].para2`}
+                    value={block.para2}
+                    onChange={(e) =>
+                      setFieldValue(`data[${index}].para2`, e.target.value)
+                    }
+                    label="Paragraph 2"
+                    placeholder="Enter Paragraph 2"
+                    onBlur={handleBlur}
+                  />
+                </div>
+
+                <div className="mb-4">
+
+                  <ATMTextArea
+                    name={`data[${index}].blockquote`}
+                    value={block.blockquote}
+                    onChange={(e) =>
+                      setFieldValue(`data[${index}].blockquote`, e.target.value)
+                    }
+                    label="Blockquote"
+                    placeholder="Enter Blockquote"
+                    onBlur={handleBlur}
+                  />
+                </div>
+
+                <div className="mb-4">
+
+
+                  <ATMTextArea
+                    name={`data[${index}].para3`}
+                    value={block.para3}
+                    onChange={(e) =>
+                      setFieldValue(`data[${index}].para3`, e.target.value)
+                    }
+                    label="Paragraph 3"
+                    placeholder="Enter Paragraph 3"
+                    onBlur={handleBlur}
+                  />
+                </div>
 
                 <label className="text-sm font-medium text-gray-600 mt-4 block">
                   Bullets
                 </label>
                 {block.bullets.map((bullet, bulletIndex) => (
                   <div key={bulletIndex} className="flex gap-2 items-center mb-2">
-                    <div className="flex-1">
+                    <div className="flex-1 mb-4">
                       <ATMTextField
                         label=""
                         name={`data[${index}].bullets[${bulletIndex}]`}
