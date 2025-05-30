@@ -179,8 +179,9 @@ const CultureOfOriginLayout = ({
 
             <ATMButton
               type="button"
-              onClick={() => handleAddItem("approach")}
+              onClick={() => values.approach.length < 32 && handleAddItem("approach")}
               extraClasses="mt-4"
+              disabled={values.approach.length >= 32}
             >
               + Add Approach
             </ATMButton>
